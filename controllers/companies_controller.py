@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from db import db
-from models.company import Companies, company_schema, companies_schema
+from models.companies import Companies, company_schema, companies_schema
 from util.reflection import populate_object
 
 
@@ -21,10 +21,10 @@ def company_add(req):
     return jsonify({"message": "company created", "results": company_schema.dump(new_company)}), 200
 
 
-def company_get():
+def companies_get():
     query = db.session.query(Companies).all()
 
-    return jsonify({"message": "company found", "results": companies_schema.dump(query)}), 200
+    return jsonify({"message": "companies found", "results": companies_schema.dump(query)}), 200
 
 
 def company_by_id(req, company_id):

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 import psycopg2
 import os
 
@@ -26,9 +26,7 @@ register_blueprints(app)
 
 def create_tables():
     with app.app_context():
-        print('Creating tables...')
         db.create_all()
-        print('Tables created successfully')
 
 
 if __name__ == '__main__':

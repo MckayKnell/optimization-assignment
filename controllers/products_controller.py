@@ -2,11 +2,11 @@ from flask import jsonify
 
 from db import db
 from models.products import Products, product_schema, products_schema
-from models.category import Categories
+from models.categories import Categories
 from util.reflection import populate_object
 
 
-def products_add(req):
+def product_add(req):
     post_data = req.form if req.form else req.json
 
     new_product = Products.new_product_obj()
@@ -33,13 +33,19 @@ def products_active():
     return jsonify({"message": "products found", "results": products_schema.dump(query)}), 200
 
 
-def products_by_id(product_id):
+def product_by_id(product_id):
     query = db.session.query(Products).filter(Products.product_id == product_id).all()
 
-    return jsonify({"message": "products found", "results": products_schema.dump(query)}), 200
+    return jsonify({"message": "product found", "results": products_schema.dump(query)}), 200
 
 
-def products_update(req, product_id):
+def product_by_id(company_id):
+    query = db.session.query(Products).filter(Products.company_id == company_id).all()
+
+    return jsonify({"message": "product found", "results": products_schema.dump(query)}), 200
+
+
+def product_update(req, product_id):
     post_data = req.form if req.form else req.json
 
     new_product = Products.new_product_obj()

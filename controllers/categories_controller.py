@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from db import db
-from models.category import Categories, category_schema, Categories_Schema
+from models.categories import Categories, category_schema, Categories_Schema
 from util.reflection import populate_object
 
 
@@ -35,10 +35,10 @@ def category_update(req, category_id):
     return jsonify({'message': 'category updated'})
 
 
-def category_get():
+def categories_get():
     query = db.session.query(Categories).all()
 
-    return jsonify({"message": "category found", "results": Categories_Schema.dump(query)}), 200
+    return jsonify({"message": "categories found", "results": Categories_Schema.dump(query)}), 200
 
 
 def category_by_id(category_id):
