@@ -27,7 +27,7 @@ def companies_get():
     return jsonify({"message": "companies found", "results": companies_schema.dump(query)}), 200
 
 
-def company_by_id(req, company_id):
+def company_by_id(company_id):
     company_query = db.session.query(Companies).filter(Companies.company_id == company_id)
 
     return jsonify({'message': 'company found', 'result': company_schema.dump(company_query)})
@@ -38,8 +38,12 @@ def company_update(req, company_id):
     company_query = db.session.query(Companies).filter(Companies.company_id == company_id)
 
     populate_object(company_query, post_data)
+    try:
+        db.session.commit()
+    except:
+        return jsonify({'message': 'unable to update record'}), 400
 
-    db.session.commit()
+    return jsonify({'message': 'category updated'})
 
 
 def delete_company_by_id(company_id):

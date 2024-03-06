@@ -35,7 +35,7 @@ def category_update(req, category_id):
     return jsonify({'message': 'category updated'})
 
 
-def categories_get():
+def categories_get_all():
     query = db.session.query(Categories).all()
 
     return jsonify({"message": "categories found", "results": Categories_Schema.dump(query)}), 200
